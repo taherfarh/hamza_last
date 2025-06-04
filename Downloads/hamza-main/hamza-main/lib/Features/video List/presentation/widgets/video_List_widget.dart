@@ -56,47 +56,46 @@ class _LoginWidgetState extends State<VideoListWidget> {
 
     Future<void> mm() async {
       await cubit.getuser(widget.coursename);
-      list =await cubit.get;
-    
-        await Datachick().inserttodatabase(
-            lict: "false", name: widget.coursename, videoname: "m");
-        List<Map<String, dynamic>> m = await Datachick().getdatabase(
-          widget.coursename,
-        );
-        print(await m);
-        
-        print(await list.length);
-   Future.delayed(Duration(milliseconds: 0)).then((value) async{
-      if (m.length == 1) {
-          selectedItems.add(false);
-          for (var i = 0; i < list.length; i++) {
-            await Datachick().inserttodatabase(
-                lict: "false",
-                name: widget.coursename,
-                videoname: list[i].name);
+      list = await cubit.get;
+
+      await Datachick().inserttodatabase(
+          lict: "false", name: widget.coursename, videoname: "m");
+      List<Map<String, dynamic>> m = await Datachick().getdatabase(
+        widget.coursename,
+      );
+      print(await m);
+
+      print(await list.length);
+      Future.delayed(Duration(milliseconds: 0)).then(
+        (value) async {
+          if (m.length == 1) {
             selectedItems.add(false);
+            for (var i = 0; i < list.length; i++) {
+              await Datachick().inserttodatabase(
+                  lict: "false",
+                  name: widget.coursename,
+                  videoname: list[i].name);
+              selectedItems.add(false);
+            }
+          } else {
+            selectedItems.clear();
+            for (var i = 0; i < list.length + 1; i++) {
+              selectedItems.add(stringToBool(m[i]['lict']));
+            }
           }
-          
-        } else {
-          selectedItems.clear();
-          for (var i = 0; i < list.length + 1; i++) {
-            selectedItems.add(stringToBool( m[i]['lict']));
+          if (set == true) {
+            setState(() {
+              set = false;
+            });
           }
-          
-        }
-        if (set == true) {
-          setState(() {
-            set=false;
-          });
-        }
-   },);
-       
-     
+        },
+      );
+
       print(selectedItems);
     }
-   
+
     mm();
-    
+
     print(selectedItems.length);
     double height = MediaQuery.sizeOf(context).height;
     double width = MediaQuery.sizeOf(context).width;
@@ -105,7 +104,6 @@ class _LoginWidgetState extends State<VideoListWidget> {
         if (state is InitListStates || state is LoadingListStates) {
           return LoadingPage();
         } else if (state is SuccessfulListStates) {
-          
           return ListView.builder(
             itemCount: list.length,
             itemBuilder: (context, index) => Padding(
@@ -119,57 +117,64 @@ class _LoginWidgetState extends State<VideoListWidget> {
                         videoname: list[index].name,
                       ));
                 },
-                child: Container(
-                    width: width * 0.6,
-                    height: height * 0.1,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.grey.shade200),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          Gap(10),
-                          Text(
-                            (index + 1).toString(),
-                            style: TextStyle(
-                                fontSize:
-                                    ResponsiveSize(context: context, size: 15)
-                                        .size,
-                                fontWeight: FontWeight.bold,
-                                color: kprimecolor),
-                          ),
-                          Gap(10),
-                          SizedBox(
-                            width: width * 0.6,
-                            child: Text(
-                              list[index].name,
-                              softWrap: true, // This is true by default
-                              maxLines: 3, // Optional: limit to 3 lines
-                              overflow: TextOverflow.ellipsis,
+                child: Card(
+                  elevation: 8,
+                  shadowColor: Colors.black,
+                  child: Container(
+                      width: width * 0.6,
+                      height: height * 0.1,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.grey.shade200),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            Gap(10),
+                            Text(
+                              (index + 1).toString(),
                               style: TextStyle(
                                   fontSize:
                                       ResponsiveSize(context: context, size: 15)
                                           .size,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.black),
+                                  color: kprimecolor),
                             ),
-                          ),
-                        selectedItems.length ==0? Gap(1):
-                          Checkbox(
-                            value: selectedItems[index + 1],
-                            onChanged: (value) async {
-                              await Datachick().updatadata(widget.coursename,
-                                  list[index].name, value.toString());
-                              setState(() {
-                                _onCheckboxChanged(
-                                    index, value, list[index].name);
-                              });
-                            },
-                          )
-                        ],
-                      ),
-                    )),
+                            Gap(10),
+                            SizedBox(
+                              width: width * 0.6,
+                              child: Text(
+                                list[index].name,
+                                softWrap: true, // This is true by default
+                                maxLines: 3, // Optional: limit to 3 lines
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontSize: ResponsiveSize(
+                                            context: context, size: 15)
+                                        .size,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black),
+                              ),
+                            ),
+                            selectedItems.length == 0
+                                ? Gap(1)
+                                : Checkbox(
+                                    value: selectedItems[index + 1],
+                                    onChanged: (value) async {
+                                      await Datachick().updatadata(
+                                          widget.coursename,
+                                          list[index].name,
+                                          value.toString());
+                                      setState(() {
+                                        _onCheckboxChanged(
+                                            index, value, list[index].name);
+                                      });
+                                    },
+                                  )
+                          ],
+                        ),
+                      )),
+                ),
               ),
             ),
           );

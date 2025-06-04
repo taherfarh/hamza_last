@@ -16,7 +16,7 @@ void checkuser(String phone,password) async{
 emit(LoginLoading());
  
   try {
-    var requst=await dio.post("https://grey-lark-555868.hostingersite.com/mo/usersuth.php?phone=$phone&password=$password",data: {});
+    var requst=await dio.post("https://aliceblue-dolphin-854247.hostingersite.com/mo/usersuth.php?phone=$phone&password=$password",data: {});
 
          List<GetUserModel> Login= await GetUserInfo().getuser(phone);
      if (requst.statusCode == 200 && requst.data == phone+password) {

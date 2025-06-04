@@ -12,7 +12,7 @@ late List<GetUserModel>   get;
 Future<List<GetUserModel>> getuser(String phone) async {
   emit(GetCourseloading());
   try {
-    var respon = await dio.get("https://grey-lark-555868.hostingersite.com/mo/getusercourses.php?phone=$phone");
+    var respon = await dio.get("https://aliceblue-dolphin-854247.hostingersite.com/mo/getusercourses.php?phone=$phone");
    
     if (respon.statusCode == 200 && respon.data is List) {
       get=(respon.data as List)

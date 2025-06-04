@@ -7,7 +7,7 @@ class UpdateUserLogin {
        Dio dio=Dio();
 
        try {
-          var request= await dio.post("https://grey-lark-555868.hostingersite.com/mo/updateuserlogin.php?phone=$phone&login=yes");
+          var request= await dio.post("https://aliceblue-dolphin-854247.hostingersite.com/mo/updateuserlogin.php?phone=$phone&login=yes");
 
        } catch (e) {
               print(e);

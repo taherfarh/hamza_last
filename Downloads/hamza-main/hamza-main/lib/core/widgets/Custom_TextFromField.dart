@@ -23,54 +23,56 @@ class CustomTextFromfield extends StatelessWidget {
   final IconData iconData;
   final Function() function;
 
-  
-
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-        validator: (value) {
-          if (value!.isEmpty) {
-            return validator;
-          }
-          return null;
-        },
-        controller: controlar,
-        obscureText: obscureText,
-        keyboardType: textInputType,
-        decoration: InputDecoration(
-          alignLabelWithHint: true,
-          contentPadding: const EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-          filled: true,
-          fillColor: Colors.white,
-          focusedErrorBorder: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(15)),
-            borderSide: BorderSide(width: 1, color: Colors.red),
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
           ),
-         
-          focusedBorder: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(15)),
-            borderSide: BorderSide(width: 1, color: Colors.blue),
-          ),
-          errorBorder: const OutlineInputBorder(
-            borderRadius: BorderRadius.all(Radius.circular(15)),
-            borderSide: BorderSide(width: 1, color: Colors.red),
-          ),
-          enabledBorder: const OutlineInputBorder(
-              borderSide: BorderSide(
-                  width: 1, color: Color.fromARGB(255, 209, 207, 207)),
-              borderRadius: BorderRadius.all(Radius.circular(15))),
-          label:Text(label,style: TextStyle(
-                fontSize: ResponsiveSize(context: context, size: 20).size,
-                fontWeight: FontWeight.bold,
-                color: Colors.grey
-              ),),
-          labelStyle: const TextStyle(color: Colors.grey),
-          suffixIcon: IconButton(
+        ],
+      ),
+      child: Card(
+        elevation: 8,
+        shadowColor: Colors.black,
+        child: TextFormField(
+          validator: (value) {
+            if (value!.isEmpty) {
+              return validator;
+            }
+            return null;
+          },
+          controller: controlar,
+          obscureText: obscureText,
+          keyboardType: textInputType,
+          style: const TextStyle(color: Colors.black),
+          decoration: InputDecoration(
+            hintText: label,
+            hintStyle: TextStyle(
+              color: Colors.grey.shade500,
+              fontSize: ResponsiveSize(context: context, size: 18).size,
+            ),
+            suffixIcon: IconButton(
               onPressed: function,
-              icon: Icon(
-                iconData,
-                color: Colors.grey,
-              )),
-        ));
+              icon: Icon(iconData, color: Colors.grey.shade600),
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(15),
+              borderSide: BorderSide.none,
+            ),
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+            filled: true,
+            fillColor: Colors.white,
+            errorStyle: const TextStyle(color: Colors.redAccent),
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -14,7 +14,7 @@ Future<List<VideoListModel>> getuser(String coursename) async {
   emit(LoadingListStates());
   try {
     print("mmmmmmmmmmmmmmmmm");
-    var respon = await dio.get("https://grey-lark-555868.hostingersite.com/mo/$coursename.php");
+    var respon = await dio.get("https://aliceblue-dolphin-854247.hostingersite.com/mo/$coursename.php");
     print(respon.statusCode);
     if (respon.statusCode == 200 && respon.data is List) {
       emit(SuccessfulListStates());

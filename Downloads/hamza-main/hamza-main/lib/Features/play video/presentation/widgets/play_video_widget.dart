@@ -24,7 +24,7 @@ class _VideoPlayerPageState extends State<VideoPlayerPage> {
   void initState() {
     noscreenshot.screenshotOff();
     super.initState();
-    _videoPlayerController = VideoPlayerController.network("https://grey-lark-555868.hostingersite.com/mo/${widget.coursname}/${widget.videoname}.mp4");
+    _videoPlayerController = VideoPlayerController.network("https://aliceblue-dolphin-854247.hostingersite.com/mo/${widget.coursname}/${widget.videoname}.mp4");
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController,
       autoPlay: true,
